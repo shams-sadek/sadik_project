@@ -12,5 +12,30 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+    //mix.sass('app.scss');
+
+    /* All Styles */
+    mix.styles([
+        'font-awesome.min.css',
+        'googleapis.css',
+        'bootstrap.min.css',
+        'bootstrap-datetimepicker.min.css',
+        'custom.css',
+
+    ], 'public/css/normalize.css');
+
+
+
+    /* scripts Files */
+    mix.scripts([
+        'jquery.min.js',
+        'moment.min.js',
+        'bootstrap.min.js',
+        'bootstrap-datetimepicker.min.js',
+        'custom.js',
+    ], 'public/js/normalize.js');
+
+
+
+
 });

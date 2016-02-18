@@ -31,7 +31,12 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::group(['middleware' => 'web'], function () {
+
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
+
+    Route::get('/patient', 'PatientController@index');
+    Route::post('/patient', 'PatientController@store');
+//    Route::resource('/patient', 'PatientController');
 });

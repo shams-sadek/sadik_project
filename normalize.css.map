@@ -1,0 +1,1 @@
+{"version":3,"sources":["abc.css","xyz.css"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;ACHA;AACA;AACA","file":"normalize.css","sourcesContent":["body{\n    width: 12in;\n    color: red;\n}","table{\n    border: 1px solid red;\n}"],"sourceRoot":"/source/"}
