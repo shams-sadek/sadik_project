@@ -19,6 +19,8 @@
         @yield('content')
     </div>
 
+    @include ('layouts.footer')
+
     <!-- JavaScripts -->
     {!! Html::script('js/normalize.js') !!}
 

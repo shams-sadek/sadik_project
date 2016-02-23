@@ -9,6 +9,15 @@ $(function () {
         $(".alert").alert('close');
     });
 
+
+    /* Jquery DataTables */
+    $('#table_id').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: $(this).data('url')
+    });
+
+
 });
 
 

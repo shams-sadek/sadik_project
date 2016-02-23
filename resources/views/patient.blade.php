@@ -50,7 +50,26 @@
                 $('#alert').delay(2000).fadeOut(400)
             </script>
 
+        </div>
+
+
+        <div class="col-md-8">
+            <table id="table_id" class="table table-bordered table-condensed table-hover table-responsive table-striped" data-url="{{ url('patient') }}">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sadik</td>
+                        <td>0171</td>
+                    </tr>
+                </tbody>
+            </table>
 
         </div>
+
     </div>
 @endsection
