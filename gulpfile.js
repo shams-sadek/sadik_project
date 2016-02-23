@@ -20,7 +20,8 @@ elixir(function(mix) {
         'googleapis.css',
         'bootstrap.min.css',
         'bootstrap-datetimepicker.min.css',
-        'jquery.dataTables.css',
+        //'jquery.dataTables.css',
+        'dataTables.bootstrap.min.css',
         'custom.css',
 
     ], 'public/css/normalize.css');
@@ -34,6 +35,7 @@ elixir(function(mix) {
         'bootstrap.min.js',
         'bootstrap-datetimepicker.min.js',
         'jquery.dataTables.js',
+        'dataTables.bootstrap.min.js',
         'custom.js',
     ], 'public/js/normalize.js');
 

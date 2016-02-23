@@ -28,7 +28,7 @@ class PatientController extends Controller
 
 
         if($request->ajax()){
-            return $allPatients = Datatables::of($patient)->make();
+            return Datatables::of($patient)->make();
         }
 
 

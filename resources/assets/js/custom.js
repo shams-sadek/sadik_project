@@ -11,7 +11,7 @@ $(function () {
 
 
     /* Jquery DataTables */
-    $('#table_id').DataTable({
+    $('.datatable').DataTable({
         processing: true,
         serverSide: true,
         ajax: $(this).data('url')

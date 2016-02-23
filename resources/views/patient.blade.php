@@ -46,15 +46,15 @@
 
             {!! Form::close() !!}
 
-            <script>
-                $('#alert').delay(2000).fadeOut(400)
-            </script>
+            {{--<script>--}}
+                {{--$('#alert').delay(2000).fadeOut(400)--}}
+            {{--</script>--}}
 
         </div>
 
 
         <div class="col-md-8">
-            <table id="table_id" class="table table-bordered table-condensed table-hover table-responsive table-striped" data-url="{{ url('patient') }}">
+            <table class="datatable dataTable table table-bordered table-condensed table-hover table-responsive table-striped" data-url="{{ url('patient') }}">
                 <thead>
                 <tr>
                     <th>Name</th>
