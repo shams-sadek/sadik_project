@@ -3,8 +3,10 @@
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PatientRequest;
 use App\Models\Patient;
+use Illuminate\Support\Facades\Input;
 use Laracasts\Flash\Flash;
 use Carbon\Carbon;
+use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 
@@ -13,39 +15,37 @@ class PatientController extends Controller
     public function index(Request $request)
     {
 
-//        $allPatients  = Patient::all();
-//        $allPatients = $allPatients->map(function ($item, $key) {
-//            return [
-//                $item->name,
-//                $item->mobile
-//            ];
-//        });
-
-//        return $allPatients;
-
-
-        $patient = Patient::select( [ 'name', 'mobile' ])->get();
-
-
         if($request->ajax()){
-            return Datatables::of($patient)->make();
+
+            $patient = Patient::select( [ 'id', 'name', 'mobile', 'date_of_birth' ])->get();
+
+            return Datatables::of($patient)
+                ->addColumn('Operations', function($item){
+                        $form = \Form::open(['method' => 'DELETE', 'url' => 'patient/' . $item->id, 'class' => 'table-form-inline', 'data-bb' => 'confirm']);
+                        $form .= \Form::hidden('id', $item->id);
+                        $form .= \Form::button('<i class="glyphicon glyphicon-trash"></i> Delete', ['class' => 'btn btn-danger btn-xs', 'type'=> 'submit']);
+                        $form .= \Form::close();
+
+                        $form .= ' ' . link_to('patient/'. $item->id .'/edit', $title = "Edit", $attributes = [ 'class' => 'btn btn-primary btn-xs glyphicon glyphicon-edit' ], $secure = null);
+
+                    return $form;
+                })
+                ->removeColumn('id')
+                ->make();
         }
 
 
-//        \JavaScript::put([
-//            'allPatients' => $allPatients
-//        ]);
+        return view('patient.list');
+    }
 
-        return view('patient');
 
+    public function create()
+    {
+        return view('patient.create');
     }
 
     public function store(PatientRequest $request)
     {
-
-
-
-//        return $request->all();
 
         Patient::create( $request->all() );
 
@@ -53,4 +53,35 @@ class PatientController extends Controller
 
         return redirect('patient');
     }
+
+    public function edit($id)
+    {
+        $data['info'] = Patient::findOrFail($id);
+
+        return view('patient.edit', $data);
+    }
+
+    public function update($id, PatientRequest $request)
+    {
+        $data = Patient::findOrFail($id);
+
+        $data->update( $request->all() );
+
+        return redirect('patient');
+    }
+
+
+
+    public function destroy($id)
+    {
+        $result = Patient::find($id);
+
+        $result->delete();
+
+        return redirect('patient');
+
+//        return redirect()->back();
+    }
+
+
 }

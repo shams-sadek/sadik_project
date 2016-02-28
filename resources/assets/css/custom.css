@@ -9,3 +9,8 @@
 .close{
     margin-left: 10px;
 }
+
+.table-form-inline {
+    display: inline-block;
+    height: 8px;
+}

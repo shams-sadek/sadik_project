@@ -20,8 +20,8 @@ class Patient extends Model
         $this->attributes['date_of_birth'] = Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d');
     }
 
-//    public function getDateOfBirthAttribute($date)
-//    {
-//        $this->attributes['date_of_birth'] = Carbon::createFromFormat('Y-m-d', $date);
-//    }
+    public function getDateOfBirthAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
+    }
 }
