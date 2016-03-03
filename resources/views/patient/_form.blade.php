@@ -1,9 +1,21 @@
+<div class="form-group">
+    {!! Form::label('vendor_type_id','Type', [ 'class' => 'control-label' ]) !!}
+    {{ Form::select('vendor_type_id', $vendorTypeLists, null, [ 'class' => 'select2 form-control', 'placeholder' => 'Please Select Type' ] ) }}
+
+</div>
+
+<div class="form-group">
+    {!! Form::label('food_list','Select Foods', [ 'class' => 'control-label' ]) !!}
+    {{ Form::select('food_list[]', $foods, null, [ 'class' => 'select2 form-control', 'multiple' ] ) }}
+</div>
+
 <div class="form-group @if($errors->first('name')) has-error @endif">
-    {!! Form::label('name','Patient Name', [ 'class' => 'control-label' ]) !!}
-    {!! Form::text('name', null, [ 'class' => 'form-control', 'placeholder' => 'Patient Name' ]) !!}
+    {!! Form::label('name','Name', [ 'class' => 'control-label' ]) !!}
+    {!! Form::text('name', null, [ 'class' => 'form-control', 'placeholder' => 'Name' ]) !!}
 
     <span class="help-block">{{ $errors->first('name') }}</span>
 </div>
+
 
 <div class="form-group">
     {!! Form::label('mobile','Mobile No') !!}
@@ -30,6 +42,6 @@
     {!! Form::textarea('address', null, [ 'class' => 'form-control', 'placeholder' => 'Address' ] ) !!}
 </div>
 
-{!! Form::submit('Submit', [ 'class' => 'btn btn-primary' ]) !!}
+{!! Form::submit($submit_button, [ 'class' => 'btn btn-primary' ]) !!}
 
 {!! link_to('patient', 'Cancel', ['class' => 'btn btn-default']) !!}

@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
+use App\Models\VendorType;
+use App\Models\Food;
 
 class PatientController extends Controller
 {
@@ -41,13 +43,18 @@ class PatientController extends Controller
 
     public function create()
     {
-        return view('patient.create');
+        $vendorTypeLists = VendorType::lists('name', 'id');
+        $foods = Food::lists('name', 'id');
+
+        return view('patient.create', compact('vendorTypeLists','foods') );
     }
 
     public function store(PatientRequest $request)
     {
 
-        Patient::create( $request->all() );
+        $patient = Patient::create( $request->all() );
+
+        $patient->foods()->attach( $request->input('food_list') );
 
         Flash::success('Successfully Created Patient.');
 
@@ -56,16 +63,22 @@ class PatientController extends Controller
 
     public function edit($id)
     {
-        $data['info'] = Patient::findOrFail($id);
+        $info = Patient::findOrFail($id);
 
-        return view('patient.edit', $data);
+        $vendorTypeLists = VendorType::lists('name', 'id');
+
+        $foods = Food::lists('name', 'id');
+
+        return view('patient.edit', compact( 'info', 'vendorTypeLists','foods','selectedFoodList' ) );
     }
 
     public function update($id, PatientRequest $request)
     {
-        $data = Patient::findOrFail($id);
+        $patient = Patient::findOrFail($id);
 
-        $data->update( $request->all() );
+        $patient->update( $request->all() );
+
+        $patient->foods()->sync( $request->input('food_list') );
 
         return redirect('patient');
     }
@@ -74,13 +87,12 @@ class PatientController extends Controller
 
     public function destroy($id)
     {
-        $result = Patient::find($id);
+        $result = Patient::findOrFail($id);
 
         $result->delete();
 
         return redirect('patient');
 
-//        return redirect()->back();
     }
 
 

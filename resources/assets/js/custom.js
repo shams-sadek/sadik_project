@@ -35,6 +35,12 @@ $(function () {
 
 
     /*
+     * Select2
+     */
+
+    $('.select2').select2();
+
+    /*
      * DataTables Dynamic Delete Form preventDefault()
      * Delete Table Row By Delete Form
      */
