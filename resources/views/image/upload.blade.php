@@ -8,7 +8,7 @@
 
         {{--<img id="output" class="target" style="max-width: 600px; max-height: 300px; border: none;"/>--}}
 
-        {{ Html::image(null, null, ['id'=>'output', 'style' => 'max-width: 640px; max-height: 360px;']) }}
+        {{ Html::image('images/pp_size.png', null, ['id'=>'output', 'style' => 'max-width: 360px; max-height: 360px;']) }}
 
         {!! Form::open( [ 'url' => 'image', 'method'=> 'post', 'files' => true, 'onsubmit' => 'return checkCoords();' ]) !!}
 
@@ -18,15 +18,10 @@
             {!! Form::file('photo', [ 'class' => 'form-control', 'accept' => "image/*", 'onchange' => "loadFile(event)" ] ) !!}
         </div>
 
-
-        {!! Form::hidden('modal', $modal, [ 'id' => 'modal' ]) !!}
-
-        {!! Form::hidden('img_backup', $image, []) !!}
-
-        {{ Form::hidden('x', null, ['id'=>'x']) }}
-        {{ Form::hidden('y', null, ['id'=>'y']) }}
-        {{ Form::hidden('w', null, ['id'=>'w']) }}
-        {{ Form::hidden('h', null, ['id'=>'h']) }}
+        {{ Form::hidden('x', 0, ['id'=>'x']) }}
+        {{ Form::hidden('y', 0, ['id'=>'y']) }}
+        {{ Form::hidden('w', 360, ['id'=>'w']) }}
+        {{ Form::hidden('h', 360, ['id'=>'h']) }}
 
         {!! Form::submit('Submit', [ 'class' => 'btn btn-primary' ]) !!}
 

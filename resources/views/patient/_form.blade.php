@@ -24,10 +24,20 @@
     {!! Form::text('mobile', null, [ 'class' => 'form-control', 'placeholder' => 'Mobile No' ] ) !!}
 </div>
 
+
+{{ Html::image('images/pp_size.png', null, ['id'=>'output', 'style' => 'max-width: 360px; max-height: 360px;']) }}
+
+{{ Form::hidden('x', 0, ['id'=>'x']) }}
+{{ Form::hidden('y', 0, ['id'=>'y']) }}
+{{ Form::hidden('w', 360, ['id'=>'w']) }}
+{{ Form::hidden('h', 360, ['id'=>'h']) }}
+
 <div class="form-group">
     {!! Form::label('photo','Select Image') !!}
 
-    {!! Form::file('photo', [ 'class' => 'form-control' ] ) !!}
+    {{--{!! Form::file('photo', [ 'class' => 'form-control' ] ) !!}--}}
+
+    {!! Form::file('photo', [ 'class' => 'form-control', 'accept' => "image/*", 'onchange' => "loadFile(event)" ] ) !!}
 </div>
 
 
@@ -53,12 +63,6 @@
 
 </div>
 
-{{ Html::image('images/categories/1/IMG_20150125_174100.jpg', 'a picture', ['class' => 'thumb', 'id'=> 'target'] ) }}
-
-{{ Form::text('x', null, ['id'=>'x']) }}
-{{ Form::text('y', null, ['id'=>'y']) }}
-{{ Form::text('w', null, ['id'=>'w']) }}
-{{ Form::text('h', null, ['id'=>'h']) }}
 
 
 <div class="form-group">

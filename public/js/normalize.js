@@ -24629,7 +24629,8 @@ var loadFile = function(event) {
         onSelect:    showCoords,
         bgColor:     'black',
         bgOpacity:   .4,
-        aspectRatio: 16 / 9
+        setSelect:   [ 0, 0, 360, 360 ],
+        aspectRatio: 2 / 2
     });
 
 };

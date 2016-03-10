@@ -15,64 +15,31 @@ class ImageController extends Controller
 
     public function index()
     {
-        $image = Session::get('img');
-
-        $modal = ( Session::get('modal') == null ? false : true );
-
-        return view('image.upload', compact('image', 'modal') );
+        return view('image.upload');
     }
 
 
     public function store()
     {
 
-            $image = Input::file('photo');
+        $file = Input::file('photo');
 
-            $image_name = $image->getClientOriginalName();
+        $file_name = $file->getClientOriginalName();
 
-            $image->move('images/categories', $image_name);
+        $img = Image::make($file);
 
-            $image_final = 'images/categories/' . $image_name;
-
-
-            /* Intervention */
-            $int_image = Image::make($image_final);
-
-            $int_image->resize( 640, 360, function ($constraint) {
+        $img->resize( 360, 360, function ($constraint) {
                 $constraint->aspectRatio();
             });
 
+        $img->crop( intval(Input::get('w')), intval(Input::get('h')), intval(Input::get('x')), intval(Input::get('y')) );
 
-            $int_image->crop( intval(Input::get('w')), intval(Input::get('h')), intval(Input::get('x')), intval(Input::get('y')) );
-//            $int_image->fit(1600);
-
-            $int_image->save($image_final);
+        $img->save('images/categories/' . $file_name);
 
 
         return redirect('image');
     }
 
-    public function cropImage()
-    {
-        Session::forget('modal');
-
-        $img = Session::get('img');
-
-        $img = Input::get('src');
-
-        $int_image = Image::make($img);
-
-        $int_image->crop( intval(Input::get('w')), intval(Input::get('h')), intval(Input::get('x')), intval(Input::get('y')) );
-
-        $int_image->fit(300);
-
-        $int_image->save($img);
-
-        return redirect('image');
-
-//        return 'yes';
-//        dd(Input::all());
-    }
 
     public function show()
     {

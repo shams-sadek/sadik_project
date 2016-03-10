@@ -75,31 +75,27 @@ class PatientController extends Controller
         File::exists( $users_photos_path ) or File::makeDirectory($users_photos_path);
 
 
-//        $file_name = Input::file('___')->getClientOriginalName();
-        $file_name = Input::file('photo')->getClientOriginalName();
+        $image = Input::file('photo');
 
+        $file_name = $image->getClientOriginalName();
 
-//        dd($file_name);
+        $image->move($users_photos_path, $file_name);
 
-//        $image = Image::make($request->file('___'));
-        $image = Image::make($request->file('photo'));
-        $image->resize(300, null, function ($constraint) {
+        $image_final = $users_photos_path . $file_name;
+
+        /* Intervention */
+        $int_image = Image::make($image_final);
+
+        $int_image->resize( 360, 360, function ($constraint) {
             $constraint->aspectRatio();
         });
 
-//        $image->crop( intval(Input::get('w')), intval(Input::get('h')), intval(Input::get('x')), intval(Input::get('y')) );
-//        $image->fit(300);
+        $int_image->crop( intval(Input::get('w')), intval(Input::get('h')), intval(Input::get('x')), intval(Input::get('y')) );
 
-        $image->save( $users_photos_path . $file_name );
+        $int_image->save($image_final);
 
-//        +mime: "image/jpeg"
-//    +dirname: "/home/vagrant/Code/sadik_project/public/images/categories/1"
-//    +basename: "IMG_20140102_200147.jpg"
-//    +extension: "jpg"
-//    +filename: "IMG_20140102_200147"
 
-//        dd($users_photos_path);
-//        dd($image->basename);
+//        $image->save( $users_photos_path . $file_name );
 
 
         /*
