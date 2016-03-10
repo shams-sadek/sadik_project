@@ -36,22 +36,15 @@ class Patient extends Model
         return $this->foods()->lists('id')->toArray();
     }
 
+
     /*
-     * Boot Method
+     * delete Method Override
      */
-    public static function boot()
+
+    public function delete()
     {
-        parent::boot();
-
-        static::deleted(function ($post) {
-            $post->foods()->detach( $post->food_list );
-        });
-
-//        static::restored(function ($user) {
-//            foreach($user->getTrashedArticles() as $article) {
-//                $article->restore();
-//            }
-//        });
+        $this->foods()->detach();
+        parent::delete();
     }
 
 }

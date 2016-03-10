@@ -36,9 +36,13 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
 
+
     Route::resource('patient', 'PatientController');
 
-//    Route::get('/patient', 'PatientController@index');
-//    Route::post('/patient', 'PatientController@store');
-//    Route::resource('/patient', 'PatientController');
+    Route::any('image/crop-image', 'ImageController@cropImage');
+    Route::resource('image', 'ImageController');
+
+
+    Route::resource('student', 'StudentController');
+
 });

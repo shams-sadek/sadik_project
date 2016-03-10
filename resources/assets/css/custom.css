@@ -14,3 +14,7 @@
     display: inline-block;
     height: 8px;
 }
+
+.jcrop-keymgr{
+    opacity: 0;
+}

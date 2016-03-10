@@ -10,7 +10,8 @@
         "laravelcollective/html": "5.2.*",
         "laracasts/flash": "^1.3",
         "laracasts/utilities": "^2.1",
-        "yajra/laravel-datatables-oracle": "~6.0"
+        "yajra/laravel-datatables-oracle": "~6.0",
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

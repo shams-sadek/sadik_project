@@ -9,6 +9,7 @@
     {{ Form::select('food_list[]', $foods, null, [ 'class' => 'select2 form-control', 'multiple' ] ) }}
 </div>
 
+
 <div class="form-group @if($errors->first('name')) has-error @endif">
     {!! Form::label('name','Name', [ 'class' => 'control-label' ]) !!}
     {!! Form::text('name', null, [ 'class' => 'form-control', 'placeholder' => 'Name' ]) !!}
@@ -24,6 +25,23 @@
 </div>
 
 <div class="form-group">
+    {!! Form::label('photo','Select Image') !!}
+
+    {!! Form::file('photo', [ 'class' => 'form-control' ] ) !!}
+</div>
+
+
+{{--<div class="fileinput fileinput-new" data-provides="fileinput">--}}
+    {{--<div class="fileinput-preview thumbnail" data-name="photo" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>--}}
+    {{--<div>--}}
+        {{--<span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>--}}
+        {{--<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>--}}
+    {{--</div>--}}
+{{--</div>--}}
+
+
+
+<div class="form-group">
     {!! Form::label('date_of_birth','Date of Birth') !!}
 
     <div class='input-group date' id='datetimepicker1'>
@@ -34,6 +52,13 @@
     </div>
 
 </div>
+
+{{ Html::image('images/categories/1/IMG_20150125_174100.jpg', 'a picture', ['class' => 'thumb', 'id'=> 'target'] ) }}
+
+{{ Form::text('x', null, ['id'=>'x']) }}
+{{ Form::text('y', null, ['id'=>'y']) }}
+{{ Form::text('w', null, ['id'=>'w']) }}
+{{ Form::text('h', null, ['id'=>'h']) }}
 
 
 <div class="form-group">

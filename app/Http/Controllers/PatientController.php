@@ -11,6 +11,9 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use App\Models\VendorType;
 use App\Models\Food;
+//use Intervention\Image\Image;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 
 class PatientController extends Controller
 {
@@ -52,11 +55,58 @@ class PatientController extends Controller
     public function store(PatientRequest $request)
     {
 
+
+//        dd($request->all());
         $patient = Patient::create( $request->all() );
 
         $patient->foods()->attach( $request->input('food_list') );
 
+
+        /* *
+         * ------------------------------------------------------------------
+         * Image Upload
+         * ------------------------------------------------------------------
+         */
+        $users_photos_path = public_path() . '/images/categories/' . auth()->user()->id . '/';
+
+        /* *
+         * Make Image Directory By User if not exists
+         */
+        File::exists( $users_photos_path ) or File::makeDirectory($users_photos_path);
+
+
+//        $file_name = Input::file('___')->getClientOriginalName();
+        $file_name = Input::file('photo')->getClientOriginalName();
+
+
+//        dd($file_name);
+
+//        $image = Image::make($request->file('___'));
+        $image = Image::make($request->file('photo'));
+        $image->resize(300, null, function ($constraint) {
+            $constraint->aspectRatio();
+        });
+
+//        $image->crop( intval(Input::get('w')), intval(Input::get('h')), intval(Input::get('x')), intval(Input::get('y')) );
+//        $image->fit(300);
+
+        $image->save( $users_photos_path . $file_name );
+
+//        +mime: "image/jpeg"
+//    +dirname: "/home/vagrant/Code/sadik_project/public/images/categories/1"
+//    +basename: "IMG_20140102_200147.jpg"
+//    +extension: "jpg"
+//    +filename: "IMG_20140102_200147"
+
+//        dd($users_photos_path);
+//        dd($image->basename);
+
+
+        /*
+         * Flash Message After Successfully Saved
+         */
         Flash::success('Successfully Created Patient.');
+
 
         return redirect('patient');
     }

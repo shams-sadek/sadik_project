@@ -25,6 +25,8 @@ elixir(function(mix) {
         //'dataTables.bootstrap.css',
         'dataTables.main.bootstrap.css',
         'dataTables.extension.css',
+        'jasny-bootstrap.css',
+        'jquery.Jcrop.css',
         'custom.css',
 
     ], 'public/css/normalize.css');
@@ -41,6 +43,8 @@ elixir(function(mix) {
         'select2.full.js',
         'dataTables.bootstrap.min.js',
         'bootbox.js',
+        'fileinput.js',
+        'jquery.Jcrop.js',
         'custom.js',
     ], 'public/js/normalize.js');
 
