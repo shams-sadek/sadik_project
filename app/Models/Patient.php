@@ -13,7 +13,8 @@ class Patient extends Model
         'mobile',
         'date_of_birth',
         'gender',
-        'address'
+        'address',
+        'image',
     ];
 
     public function setDateOfBirthAttribute($date)

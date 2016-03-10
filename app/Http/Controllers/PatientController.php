@@ -55,51 +55,72 @@ class PatientController extends Controller
     public function store(PatientRequest $request)
     {
 
-
 //        dd($request->all());
-        $patient = Patient::create( $request->all() );
-
-        $patient->foods()->attach( $request->input('food_list') );
-
 
         /* *
          * ------------------------------------------------------------------
-         * Image Upload
+         * Image Upload By Intervention, JCrop Image Crop
          * ------------------------------------------------------------------
+         *
+         * 360px / 360px Passport Size Photo
+         * custom.js file $('#output').Jcrop({ aspectRatio 2 / 2 })
+         * view file patient/_form max-width & max-height
+         * controller PatientController $img->resize
          */
-        $users_photos_path = public_path() . '/images/categories/' . auth()->user()->id . '/';
+
 
         /* *
          * Make Image Directory By User if not exists
          */
-        File::exists( $users_photos_path ) or File::makeDirectory($users_photos_path);
 
+        $filePath = 'images/categories/' . auth()->user()->id . '/' . date('d.m.Y') . '/';
 
-        $image = Input::file('photo');
+        File::exists( $filePath ) or File::makeDirectory($filePath, 0777, true);
 
-        $file_name = $image->getClientOriginalName();
+        $img = Image::make( Input::file('photo') );
 
-        $image->move($users_photos_path, $file_name);
-
-        $image_final = $users_photos_path . $file_name;
-
-        /* Intervention */
-        $int_image = Image::make($image_final);
-
-        $int_image->resize( 360, 360, function ($constraint) {
+        $img->resize( 360, 360, function ($constraint) {
             $constraint->aspectRatio();
         });
 
-        $int_image->crop( intval(Input::get('w')), intval(Input::get('h')), intval(Input::get('x')), intval(Input::get('y')) );
+        $img->crop( intval(Input::get('w')), intval(Input::get('h')), intval(Input::get('x')), intval(Input::get('y')) );
 
-        $int_image->save($image_final);
+        $pathWithFile =  $filePath . time() . '.jpg';
+
+        $img->save($pathWithFile);
 
 
-//        $image->save( $users_photos_path . $file_name );
+
+        /* *
+         * -------------------------------------------------------
+         * Save All Text Information
+         * -------------------------------------------------------
+         * Add Image With Path in Image Field
+         */
 
 
-        /*
+        $request->merge([
+            'image' => $pathWithFile
+        ]);
+
+
+        $patient = Patient::create( $request->all() );
+
+
+        /* *
+         * -------------------------------------------------------
+         * Save Many To Many Relationship Data
+         * -------------------------------------------------------
+         */
+
+        $patient->foods()->attach( $request->input('food_list') );
+
+
+
+        /* *
+         * --------------------------------------------------------
          * Flash Message After Successfully Saved
+         * --------------------------------------------------------
          */
         Flash::success('Successfully Created Patient.');
 
