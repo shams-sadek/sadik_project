@@ -1,7 +1,9 @@
 $(function () {
 
-    /*
+    /* *
+     * ---------------------------------------------
      * DatePicker
+     * ---------------------------------------------
      * Change Format BD style
      */
 
@@ -19,10 +21,11 @@ $(function () {
     });
 
 
-    /* ############### DataTables Start ################### */
 
-    /*
+    /* *
+     * ----------------------------------------
      * Jquery DataTables Initialization
+     * ----------------------------------------
      * Ajax
      * Ajax url Dynamic From Table attribute data-url
      */
@@ -34,8 +37,10 @@ $(function () {
     });
 
 
-    /*
-     * Select2
+    /* *
+     * ----------------------------------------------------
+     * Select2 jQuery
+     * ----------------------------------------------------
      */
 
     $('.select2').select2();
@@ -46,9 +51,10 @@ $(function () {
      */
 
 
-    /*
+    /* *
+     * --------------------------------------
      * BootBox ModalBox Plugins
-     *
+     * --------------------------------------
      */
     $(document).on("submit", "form[data-bb]", function (e) {
 
@@ -98,81 +104,48 @@ $(function () {
             show: modal
         });
 
-
-    /* *
-    * ---------------------------------------------------------------------
-    * Jcrop Jquery
-    * ---------------------------------------------------------------------
-    * This is for Image Croping Plugins
-    */
-
-    //$('#output').Jcrop({
-    //    onSelect:    showCoords,
-    //    bgColor:     'black',
-    //    bgOpacity:   .4,
-    //    aspectRatio: 1
-    //});
-
-
-    //function showCoords(c) {
-    //    // variables can be accessed here as
-    //    // c.x, c.y, c.x2, c.y2, c.w, c.h
-    //    $('#x').val(c.x);
-    //    $('#y').val(c.y);
-    //    $('#w').val(c.w);
-    //    $('#h').val(c.h);
-    //}
-    //
-    //function checkCoords(){
-    //
-    //    if( parseInt( $('#w').val() ) ) return true;
-    //
-    //    alert('selection not accepted');
-    //
-    //    return false;
-    //}
-
 });
 
 
 
-/* *
- *
- * Image Load File
- *
- * */
+    /* *
+     * --------------------------------------------
+     * Image Load File
+     * --------------------------------------------
+     *
+     * */
 
-var loadFile = function(event) {
-    var output = document.getElementById('output');
-    output.src = URL.createObjectURL(event.target.files[0]);
+        var loadFile = function(event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
 
-    console.log('lop');
+            console.log('lop');
 
-    $('#output').Jcrop({
-        onSelect:    showCoords,
-        bgColor:     'black',
-        bgOpacity:   .4,
-        setSelect:   [ 0, 0, 360, 360 ],
-        aspectRatio: 2 / 2
-    });
+            $('#output').Jcrop({
+                onSelect:    showCoords,
+                bgColor:     'black',
+                bgOpacity:   .4,
+                setSelect:   [ 0, 0, 360, 360 ],
+                aspectRatio: 2 / 2
+            });
 
-};
+        };
 
 
-function showCoords(c) {
-    // variables can be accessed here as
-    // c.x, c.y, c.x2, c.y2, c.w, c.h
-    $('#x').val(c.x);
-    $('#y').val(c.y);
-    $('#w').val(c.w);
-    $('#h').val(c.h);
-}
+        function showCoords(c) {
+            // variables can be accessed here as
+            // c.x, c.y, c.x2, c.y2, c.w, c.h
+            $('#x').val(c.x);
+            $('#y').val(c.y);
+            $('#w').val(c.w);
+            $('#h').val(c.h);
+        }
 
-function checkCoords(){
+        function checkCoords(){
 
-    if( parseInt( $('#w').val() ) ) return true;
+            if( parseInt( $('#w').val() ) ) return true;
 
-    alert('selection not accepted');
+            alert('selection not accepted');
 
-    return false;
-}
+            return false;
+        }

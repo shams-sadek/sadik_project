@@ -22,11 +22,14 @@ class PatientController extends Controller
 
         if($request->ajax()){
 
-            $patient = Patient::select( [ 'id', 'name', 'mobile', 'date_of_birth' ])->get();
+            $patient = Patient::select( [ 'id', 'name', 'mobile', 'date_of_birth', 'image' ])->get();
 
             return Datatables::of($patient)
+                ->addColumn('Image', function($item){
+                    return '<img src="' . $item->image . ' " alt="Smiley face" height="42" width="42">';
+                })
                 ->addColumn('Operations', function($item){
-                        $form = \Form::open(['method' => 'DELETE', 'url' => 'patient/' . $item->id, 'class' => 'table-form-inline', 'data-bb' => 'confirm']);
+                        $form  = \Form::open(['method' => 'DELETE', 'url' => 'patient/' . $item->id, 'class' => 'table-form-inline', 'data-bb' => 'confirm']);
                         $form .= \Form::hidden('id', $item->id);
                         $form .= \Form::button('<i class="glyphicon glyphicon-trash"></i> Delete', ['class' => 'btn btn-danger btn-xs', 'type'=> 'submit']);
                         $form .= \Form::close();
@@ -36,6 +39,7 @@ class PatientController extends Controller
                     return $form;
                 })
                 ->removeColumn('id')
+                ->removeColumn('image')
                 ->make();
         }
 
@@ -77,6 +81,11 @@ class PatientController extends Controller
 
         File::exists( $filePath ) or File::makeDirectory($filePath, 0777, true);
 
+        /* *
+         * --------------------------------------------
+         * Image Processing Start
+         * --------------------------------------------
+         */
         $img = Image::make( Input::file('photo') );
 
         $img->resize( 360, 360, function ($constraint) {

@@ -22,6 +22,7 @@
                             <th>Name</th>
                             <th>Mobile</th>
                             <th>Date of Birth</th>
+                            <th>Image</th>
                             <th>Operations</th>
                         </tr>
                         </thead>
