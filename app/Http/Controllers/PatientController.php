@@ -6,17 +6,29 @@ use App\Models\Patient;
 use Illuminate\Support\Facades\Input;
 use Laracasts\Flash\Flash;
 use Carbon\Carbon;
-use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use App\Models\VendorType;
 use App\Models\Food;
-//use Intervention\Image\Image;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 
 class PatientController extends Controller
 {
+
+    public function __construct()
+    {
+        /* *
+         *-------------------------------------------------------
+         *
+         *-------------------------------------------------------
+         */
+
+        \JavaScript::put([
+            'minDate' => '2016/03/04'
+        ]);
+    }
+
     public function index(Request $request)
     {
 
@@ -52,14 +64,15 @@ class PatientController extends Controller
     {
         $vendorTypeLists = VendorType::lists('name', 'id');
         $foods = Food::lists('name', 'id');
+        $image = 'images/pp_size.png';
 
-        return view('patient.create', compact('vendorTypeLists','foods') );
+        return view('patient.create', compact('vendorTypeLists','foods', 'image') );
     }
 
     public function store(PatientRequest $request)
     {
 
-//        dd($request->all());
+      if($request->hasFile('photo')){
 
         /* *
          * ------------------------------------------------------------------
@@ -112,6 +125,7 @@ class PatientController extends Controller
             'image' => $pathWithFile
         ]);
 
+      }/* Image File End */
 
         $patient = Patient::create( $request->all() );
 
@@ -144,8 +158,9 @@ class PatientController extends Controller
         $vendorTypeLists = VendorType::lists('name', 'id');
 
         $foods = Food::lists('name', 'id');
+        $image = $info->image;
 
-        return view('patient.edit', compact( 'info', 'vendorTypeLists','foods','selectedFoodList' ) );
+        return view('patient.edit', compact( 'info', 'vendorTypeLists','foods','selectedFoodList', 'image' ) );
     }
 
     public function update($id, PatientRequest $request)

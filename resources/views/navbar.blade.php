@@ -29,11 +29,22 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li>{{ Html::link(url('patient'), 'Patient') }}</li>
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
+                        <li>{{ Html::link(url('user-role'), 'User Role') }}</li>
+
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+
+                        @can('patient_list')
+                        <li><a href="#">Patient List</a></li>
+                        @endcan
+
+                        @can('doctor_list')
+                        <li><a href="#">Doctor List</a></li>
+                        @endcan
+
+                        <li role="separator" class="divider"></li>
+
+                        <li><a href="#">Accounts</a></li>
+                        <li><a href="#">Pharmacy</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="#">One more separated link</a></li>
                     </ul>

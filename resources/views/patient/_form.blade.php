@@ -1,3 +1,13 @@
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="form-group">
     {!! Form::label('vendor_type_id','Type', [ 'class' => 'control-label' ]) !!}
     {{ Form::select('vendor_type_id', $vendorTypeLists, null, [ 'class' => 'select2 form-control', 'placeholder' => 'Please Select Type' ] ) }}
@@ -21,11 +31,10 @@
 <div class="form-group">
     {!! Form::label('mobile','Mobile No') !!}
 
-    {!! Form::text('mobile', null, [ 'class' => 'form-control', 'placeholder' => 'Mobile No' ] ) !!}
+    {!! Form::text('mobile', null, [ 'class' => 'form-control', 'placeholder' => 'Mobile No', 'data-mask'=>"99999-999-999" ] ) !!}
 </div>
 
-
-{{ Html::image('images/pp_size.png', null, ['id'=>'output', 'style' => 'max-width: 360px; max-height: 360px;']) }}
+{{ Html::image( $image, null, ['id'=>'output', 'style' => 'max-width: 360px; max-height: 360px;']) }}
 
 {{ Form::hidden('x', 0, ['id'=>'x']) }}
 {{ Form::hidden('y', 0, ['id'=>'y']) }}
@@ -35,34 +44,23 @@
 <div class="form-group">
     {!! Form::label('photo','Select Image') !!}
 
-    {{--{!! Form::file('photo', [ 'class' => 'form-control' ] ) !!}--}}
-
     {!! Form::file('photo', [ 'class' => 'form-control', 'accept' => "image/*", 'onchange' => "loadFile(event)" ] ) !!}
 </div>
 
 
-{{--<div class="fileinput fileinput-new" data-provides="fileinput">--}}
-    {{--<div class="fileinput-preview thumbnail" data-name="photo" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>--}}
-    {{--<div>--}}
-        {{--<span class="btn btn-default btn-file"><span class="fileinput-new">Select image</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>--}}
-        {{--<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>--}}
-    {{--</div>--}}
-{{--</div>--}}
-
-
-
-<div class="form-group">
-    {!! Form::label('date_of_birth','Date of Birth') !!}
+<div class="form-group @if($errors->first('date_of_birth')) has-error @endif">
+    {!! Form::label('date_of_birth', 'Date of Birth') !!}
 
     <div class='input-group date' id='datetimepicker1'>
-        {!! Form::text('date_of_birth', null, [ 'class' => 'form-control', 'placeholder' => 'Date of Birth' ] ) !!}
+        {!! Form::text('date_of_birth', date('d/m/Y'),[ 'class' => 'form-control', 'placeholder' => 'Date of Birth', 'data-mask'=>"99/99/9999" ] ) !!}
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
     </div>
 
-</div>
+    <span class="help-block">{{ $errors->first('date_of_birth') }}</span>
 
+</div>
 
 
 <div class="form-group">

@@ -7,8 +7,13 @@ $(function () {
      * Change Format BD style
      */
 
+    //var minDate = '2016/03/05';
+
     $('#datetimepicker1').datetimepicker({
-        format: 'DD/MM/YYYY'
+        format: 'DD/MM/YYYY',
+        //minDate: '2016/03/05',
+        minDate: minDate,
+        maxDate: '2016/04/05'
     });
 
 
@@ -33,7 +38,7 @@ $(function () {
     $('#dataTable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: $('#dataTable').data('url')
+        ajax: $('#dataTable').data('url'),
     });
 
 
@@ -86,6 +91,7 @@ $(function () {
     });
 
 
+
     /* *
      * -----------------------------------------------------
      * Modal BootStrap
@@ -103,6 +109,15 @@ $(function () {
         $('#myModal').modal({
             show: modal
         });
+
+
+    //$('#output').Jcrop({
+    //    onSelect:    showCoords,
+    //    bgColor:     'black',
+    //    bgOpacity:   .4,
+    //    setSelect:   [ 0, 0, 360, 360 ],
+    //    aspectRatio: 2 / 2
+    //});
 
 });
 

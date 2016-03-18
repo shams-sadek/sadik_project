@@ -23,8 +23,14 @@ class PatientRequest extends Request
      */
     public function rules()
     {
+
+        if(empty($this->date_of_birth)){
+            $this->date_of_birth = date('d/m/Y');
+        }
+
         return [
-            'name'  => 'required'
+            'name'              => 'required',
+            'date_of_birth'     => 'date_format:d/m/Y',
         ];
     }
 }

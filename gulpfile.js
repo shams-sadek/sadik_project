@@ -45,6 +45,7 @@ elixir(function(mix) {
         'bootbox.js',
         'fileinput.js',
         'jquery.Jcrop.js',
+        'jasny-bootstrap.js',
         'custom.js',
     ], 'public/js/normalize.js');
 

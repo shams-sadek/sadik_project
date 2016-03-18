@@ -28,14 +28,14 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
     //
+Route::auth();
 });
 
-Route::group(['middleware' => 'web'], function () {
 
-    Route::auth();
+Route::group(['middleware' => ['web', 'auth'] ], function () {
+
 
     Route::get('/home', 'HomeController@index');
-
 
     Route::resource('patient', 'PatientController');
 
@@ -44,5 +44,9 @@ Route::group(['middleware' => 'web'], function () {
 
 
     Route::resource('student', 'StudentController');
+
+
+
+    Route::resource('user-role', 'UserRoleController');
 
 });
